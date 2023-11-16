@@ -24,20 +24,13 @@ namespace Messenger.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!System.IO.File.Exists(filePathDbInfo))
+            var connectionString = App.GetConfiguration("connection:string");
+            if (connectionString != null)
             {
                 //var DbName = JsonSerializer.Deserialize<List<DateBase.DatabaseInfo>>("DataBase.json");
                 //MessageBox.Show($"DataContext : {DbName?.First().DbName}");
-                optionsBuilder.UseSqlServer(
-                        $@"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=DatabaseMessengers;Integrated Security=True"
-                    );
-            }
-            else
-            {
-                throw new NotImplementedException("Use SQL Server Error");
-            }
-            
-                
+                optionsBuilder.UseSqlServer(connectionString);
+            }                
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

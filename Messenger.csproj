@@ -23,13 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="email-settings.json">
+    <None Update="Settings\email-settings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Settings\" />
   </ItemGroup>
 
 </Project>

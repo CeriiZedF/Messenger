@@ -21,13 +21,6 @@ namespace Messenger
         private static String configFileName = "email-settings.json";
         private static JsonElement? settings = null;
 
-        public static String? GetDBName(String name)
-        {
-            return "DatabaseMessengers.mdf";
-
-
-        }
-
         public static String? GetConfiguration(String name)
         {
             if (settings == null)
