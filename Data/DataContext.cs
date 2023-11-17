@@ -15,7 +15,6 @@ namespace Messenger.Data
 {
     public class DataContext : DbContext
     {
-        const String filePathDbInfo = "DataBase.json";
         public DbSet<Chats> chats { get; set; } = null!;
         public DbSet<User> users { get; set; } = null!;
         public DbSet<Content> contents { get; set; } = null!;
@@ -24,7 +23,7 @@ namespace Messenger.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionString = App.GetConfiguration("connection:string");
+            var connectionString = App.GetConfiguration("smtp:connectionString");
             if (connectionString != null)
             {
                 //var DbName = JsonSerializer.Deserialize<List<DateBase.DatabaseInfo>>("DataBase.json");

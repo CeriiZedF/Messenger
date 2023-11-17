@@ -15,7 +15,9 @@
         </Grid.RowDefinitions>
 
         
-        <ListView MaxHeight="400" ScrollViewer.VerticalScrollBarVisibility="Hidden"  Margin="10" Name="lvDataBinding" ItemsSource="{Binding ContentsList, Mode=TwoWay}">
+        <ListView MaxHeight="400" ScrollViewer.VerticalScrollBarVisibility="Hidden" 
+                  Margin="10" Name="lvDataBinding" 
+                  ItemsSource="{Binding ChatPageModels}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel Orientation="Vertical">

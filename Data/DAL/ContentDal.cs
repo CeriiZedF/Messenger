@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -29,7 +30,6 @@ namespace Messenger.Data.DAL
         public static async Task LoadUserInfo(Content content)
         {
             dataContext.Entry(content).Reference("User").Load();
-            //.contents.Include(c => c.Id_user).FirstOrDefaultAsync(u => u.User.Id);
         }
 
         
