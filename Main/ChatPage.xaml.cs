@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection.Metadata;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -36,8 +37,23 @@ namespace Messenger.Main
             chatPageViewModel = new ChatPageViewModel(user);
         }
 
+        private CancellationTokenSource cancellationToken = new();
+        private async void Sync()
+        {
+            if (cancellationToken.IsCancellationRequested)
+            {
+                return;
+            }
+            await Task.Delay(2000);
+            lvDataBinding.ItemsSource = ContentDal.GetContentList(CurrentChat.Id).Result;
+            Sync();
+        }
+
         public void ReSelectChat(Chats chat)
         {
+            cancellationToken.Cancel();
+            cancellationToken = new CancellationTokenSource();
+            Sync();
             chatPageViewModel.UpdateListMessage(chat);
             CurrentChat = chat;
             lvDataBinding.ItemsSource = chatPageViewModel.ContentsList;
@@ -52,27 +68,6 @@ namespace Messenger.Main
             ReSelectChat(CurrentChat);
             messageTextBox.Text = "";
         }
-
-        
-
-        //private async void Sync(CancellationToken cancellation)
-        //{
-            
-        //    if (cancellation.IsCancellationRequested)
-        //    {
-        //        return;
-        //    }
-        //    else
-        //    {
-        //        await Task.Delay(4000);
-        //        lvDataBinding.ItemsSource = ContentDal.GetContentList(CurrentChat.Id).Result;
-        //        Sync(cancellation);
-        //    }
-
-            
-            
-        //}
-
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public void OnPropertyChanged(PropertyChangedEventArgs e)
